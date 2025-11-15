@@ -22,7 +22,7 @@ var makeReq = function() {
     var req = new XMLHttpRequest();
 
     //Open Request
-    req.open('POST', 'https://thetvmounters.com/api/test.php');
+    req.open('POST', 'https://mama2go.com/request.php');
 
     //CallBack
     req.onreadystatechange = function () {
@@ -40,7 +40,7 @@ var makeReq = function() {
         }
       });
 
-      data
+      data 
       .then(txt => {
         image.remove();
         const instance = new TypeIt('#element', {
