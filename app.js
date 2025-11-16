@@ -2,7 +2,7 @@ var inputel = document.querySelector('#query');
 
 var queryBuilder = function () {
   let value = inputel.value;
-  return `{"model": "text-davinci-003", "prompt": "${value}", "temperature": 0, "max_tokens": 400}`
+  return `${value}`
 }
 
 var makeReq = function() {
@@ -22,7 +22,7 @@ var makeReq = function() {
     var req = new XMLHttpRequest();
 
     //Open Request
-    req.open('POST', 'https://mama2go.com/request.php');
+    req.open('POST', 'https://stylesbynikki.com/req.php');
 
     //CallBack
     req.onreadystatechange = function () {
@@ -30,21 +30,14 @@ var makeReq = function() {
 
       // //Parse text
       var data = new Promise((resolve,reject)=>{
-        let data = JSON.parse(req.responseText)
-        // console.log(data)
-        let text = data['choices'][0].text
-        // //Filter Text
-        text = text.replace(/\n/gm, '');
-        if(text) {
-          resolve(text);
-        }
+        resolve(req.responseText)
       });
 
       data 
       .then(txt => {
         image.remove();
         const instance = new TypeIt('#element', {
-          speed: 50
+          speed: 60
         })
           .type(`${txt}`)
           .pause(5000)
@@ -59,22 +52,14 @@ var makeReq = function() {
       })
 
       
-
-      
-
-
-
-
-
-        // document.querySelector('#element').innerText = `${txt}`
     
     }
   }
 
-  req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8')
+  req.setRequestHeader('Content-type', 'application/json')
 
   let test = queryBuilder()
-  req.send(`data=${test}`);
+  req.send(JSON.stringify({prompt: test}));
   inputel.value = ''
 }
 
